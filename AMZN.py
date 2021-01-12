@@ -1,3 +1,4 @@
+from BUYBOT import BUY_BOT
 from selenium import webdriver 
 from selenium.webdriver.common.keys import Keys 
 from selenium.webdriver.common.by import By 
@@ -24,7 +25,7 @@ PURCHASE = "#bottomSubmitOrderButtonId > span > input"
 #---------------------------------------------------------------------------
 # CLASS - AMZN_BOT
 
-class AMZN_BOT : 
+class AMZN_BOT(BUY_BOT) : 
     # Constructor
     def __init__(self, web_driver) : 
         self.driver = web_driver
