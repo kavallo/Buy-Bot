@@ -61,10 +61,9 @@ class AMZN_BOT(BUY_BOT) :
     # Checks if product is in stock. Used in add_to_cart method
     def check_in_stock(self) :
         time.sleep(2) 
-        try : 
-            is_in_stock = self.driver.find_element_by_css_selector(ADD_TO_CART)
-            return (is_in_stock.is_displayed())
-        except : #TODO Find out specific error name to catch  
+        if self.driver.find_elements_by_css_selector(ADD_TO_CART) : 
+            return True 
+        else :
             return False
 
     # Adds item to cart. Utilizes check_in_stock method & refreshes page
@@ -84,19 +83,24 @@ class AMZN_BOT(BUY_BOT) :
     def checkout(self) : 
         time.sleep(2)
         # If Insurance coverage plan pops up after adding to cart, click "No thanks" button
-        try :  
-            self.driver.find_element_by_css_selector(NO_INSURANCE) 
+        if (self.driver.find_elements_by_css_selector(NO_INSURANCE)) : 
             self.driver.find_element_by_css_selector(NO_INSURANCE).click()
             time.sleep(2) # Sleep 2s
-            # Click on checkout button (exclusive to insurance pop-up)
+            # Click on checkout button (in popup menu)
             self.driver.find_element_by_css_selector(NO_INSURANCE_CHECKOUT).click()
 
-        # If insurance coverage pop-up doesn't show, add to cart & check out
-        except : #TODO Find out specific error name to catch 
-            self.driver.find_element_by_css_selector(REG_CHECKOUT).click()
-        print("Proceeding to checkout")
-        time.sleep(1) 
+        # Else if pop up menu comes up (w/ no insurance option)
+        elif (self.driver.find_elements_by_css_selector(NO_INSURANCE_CHECKOUT)) : 
+            time.sleep(2) # Sleep 2s
+            # Click on checkout button (in popup menu)
+            self.driver.find_element_by_css_selector(NO_INSURANCE_CHECKOUT).click()
 
+        # Else perform regular checkout 
+        else : 
+            self.driver.find_element_by_css_selector(REG_CHECKOUT).click()
+        
+        print("Proceeding to checkout")
+        time.sleep(1)
         # Purchase 
         # IMPORTANT: NEXT LINE COMMENTED OUT FOR TESTING -- UNCOMMENT TO PURCHASE ITEM
         # self.driver.find_element_by_css_selector(PURCHASE).click()
