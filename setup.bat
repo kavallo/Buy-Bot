@@ -6,5 +6,8 @@ cmd /c "pip install selenium"
 @ECHO Installing dotENV...
 cmd /c "pip install python-dotenv"
 
+@ECHO Installing asyncIO...
+cmd /c "pip install asyncio"
+
 @ECHO Process finished. Please edit .env file before running start.bat  
 @pause
