@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 # Abstract class BUYBOT
-# Used as a template for AMZN_BOT, BSTBUY_BOT, NEWEGG_BOT 
+# Used as a template for AMZN_BOT, BSTBUY_BOT
 class BUY_BOT(ABC) : 
     @abstractmethod
     def setup(self) : 
@@ -17,4 +17,8 @@ class BUY_BOT(ABC) :
 
     @abstractmethod
     def checkout(self) : 
+        pass
+
+    @abstractmethod
+    def close(self) : 
         pass
