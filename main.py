@@ -1,6 +1,5 @@
 from AMZN import AMZN_BOT
 from BSTBUY import BSTBUY_BOT
-from NEWEGG import NEWEGG_BOT
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from dotenv import load_dotenv
