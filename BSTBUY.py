@@ -5,7 +5,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.support import expected_conditions as EC 
 from dotenv import load_dotenv
-import asyncio
 import time 
 import os
 
@@ -30,10 +29,10 @@ class BSTBUY_BOT(BUY_BOT) :
         self.driver = web_driver
     
     # Open browser and login to best buy account
-    async def setup(self) : 
+    def setup(self) : 
         self.driver.get(os.getenv("BSTBUY_PRODUCT_URL"))
         print("Opening Best Buy browser...")
-        await asyncio.sleep(1)
+        time.sleep(1)
         if self.driver.find_elements_by_css_selector(SURVEY_POPUP) :
             self.driver.find_element_by_css_selector(SURVEY_POPUP).click()
 

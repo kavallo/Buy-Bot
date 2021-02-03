@@ -5,7 +5,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.support import expected_conditions as EC 
 from dotenv import load_dotenv
-import asyncio
 import time 
 import os
 
@@ -33,12 +32,12 @@ class AMZN_BOT(BUY_BOT) :
         self.driver = web_driver
     
     # Open and login to amazon account
-    async def setup(self) : 
+    def setup(self) : 
         self.driver.get(os.getenv("AMZN_PRODUCT_URL"))
         print("Opening Amazon browser...")
 
         # Wait for sign in button to appear, then click 
-        await asyncio.sleep(1) 
+        time.sleep(1) 
         signin = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, AMZN_SIGN_IN)))
         self.driver.find_element_by_css_selector(AMZN_SIGN_IN).click() 
 
@@ -48,7 +47,7 @@ class AMZN_BOT(BUY_BOT) :
         self.driver.find_element_by_css_selector(USER_SEL).click()
         user_logon = self.driver.find_element_by_css_selector(USER_SEL)
         user_logon.send_keys(os.getenv("AMZN_EMAIL"))
-        await asyncio.sleep(2) 
+        time.sleep(2) 
         user_logon.send_keys(Keys.RETURN)
 
         # Sign-in Process  - Password
@@ -56,14 +55,14 @@ class AMZN_BOT(BUY_BOT) :
         self.driver.find_element_by_css_selector(PASS_SEL).click()
         user_logon = self.driver.find_element_by_css_selector(PASS_SEL)
         user_logon.send_keys(os.getenv("AMZN_PASS"))
-        await asyncio.sleep(2) 
+        time.sleep(2) 
         user_logon.send_keys(Keys.RETURN)
         print("[AMAZON] Sign in success!")
     
     # Checks if product is in stock. Used in add_to_cart method
     def check_in_stock(self) :
         self.driver.refresh()
-        time.sleep(1)
+        time.sleep(2)
         if self.driver.find_elements_by_css_selector(ADD_TO_CART) : 
             return True 
         else :
