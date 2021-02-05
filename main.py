@@ -49,8 +49,10 @@ def setup() :
         print("Both bots set to \"False\" in .env file. Exiting...")
         exit()
     # Join setup threads 
-    AMZN_SETUP_THREAD.join() 
-    BSTBUY_SETUP_THREAD.join()
+    if (USE_AMZN) : 
+        AMZN_SETUP_THREAD.join() 
+    if (USE_BSTBUY) : 
+        BSTBUY_SETUP_THREAD.join()
     
 # Checks if the product is in stock 
 # Returns boolean based on which bot has the item in stock
