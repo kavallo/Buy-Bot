@@ -3,6 +3,7 @@ from BSTBUY import BSTBUY_BOT
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from dotenv import load_dotenv
+from selenium.common.exceptions import WebDriverException
 import threading
 import time
 import os
@@ -21,9 +22,16 @@ chrome_options.add_argument('--ignore-ssl-errors')
 
 AMZN_DRIVER_PATH = os.getcwd() + "\\chromedriver\\amazon_driver.exe"
 BSTBUY_DRIVER_PATH = os.getcwd() + "\\chromedriver\\bstbuy_driver.exe"
-AMAZON = AMZN_BOT(webdriver.Chrome(AMZN_DRIVER_PATH, options=chrome_options))
-BESTBUY = BSTBUY_BOT(webdriver.Chrome(BSTBUY_DRIVER_PATH, options=chrome_options))
 
+try: 
+    AMAZON = AMZN_BOT(webdriver.Chrome(AMZN_DRIVER_PATH, options=chrome_options))
+    BESTBUY = BSTBUY_BOT(webdriver.Chrome(BSTBUY_DRIVER_PATH, options=chrome_options))
+except WebDriverException as err: 
+    print(err)
+    print("\nPlease download two of the appropriate driver version @\nhttps://sites.google.com/a/chromium.org/chromedriver/downloads\
+         \nRename one webdriver amazon_driver, and the other bstbuy_driver.")
+    exit()
+     
 # ------------------------------------------
 # Functions
 
